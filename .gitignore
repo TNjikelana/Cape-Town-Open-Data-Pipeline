@@ -16,3 +16,7 @@ Thumbs.db
 
 # Agent configuration
 .agents/
+.idea/
+.spyproject/
+
+.agents/
