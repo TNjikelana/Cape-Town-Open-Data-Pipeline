@@ -8,20 +8,20 @@ A Python data science pipeline demonstrating **data cleaning**, **data transform
 
 ## Overview
 
-Each stage takes the output of the one before it:
+The implemented cleaning stage reads the raw dataset and writes a processed file:
 
 ```
-raw data  →  1. Cleaning  →  2. Transformation  →  3. Exploration & Visualisation
-(data/raw)                   (data/processed)         (figures/)
+raw data  →  1. Cleaning
+(data/raw)    (data/processed/)
 ```
 
 | Stage | What it covers |
 |---|---|
-| **1. Data cleaning** | Parsing dates and timezones, converting percentage text to numbers, handling missing values, flagging outliers and suspicious values, validating totals |
-| **2. Data transformation** | Feature engineering (year, month, season), log transforms for skewed data, scaling (min-max vs standardisation), categorical encoding |
-| **3. Exploration & visualisation** | Trends over time, seasonality, distributions, correlations, before-vs-after comparisons |
+| **1. Data cleaning** | Parse dates and percentage values, standardize the growth column name, and flag suspicious values without clipping or replacing measurements |
+| **2. Data transformation** | Planned; not yet implemented |
+| **3. Exploration & visualisation** | Planned; not yet implemented |
 
-Each stage is written as functions that take a DataFrame and return a DataFrame, so they can be chained, tested, and reused. Dataset-specific choices (column names, thresholds) are kept in one config section at the top of each script.
+The cleaning logic is a function that takes a DataFrame and returns a cleaned DataFrame. Run `python main.py` from the project directory to write `data/processed/system_energy_clean.csv`. Input and output paths are resolved relative to `main.py`, so it can also be run from another working directory.
 
 ## Data
 
@@ -32,7 +32,7 @@ Each stage is written as functions that take a DataFrame and return a DataFrame,
 | **Size** | 107 monthly records, July 2017 to May 2026, 10 columns |
 | **Content** | Monthly electricity system figures in kWh (Eskom supply, imports, outputs, total system output, growth rates) |
 
-Raw data is stored in `data/raw/` and is never edited. All cleaning is done in code so the process is reproducible.
+Raw data is stored in `data/raw/` and is never edited. The pipeline preserves source measurements, including negative values and published totals, while adding flags for values that may need review. The first 66 missing `F12_Month_Ave` entries are retained as missing values.
 
 > Check the dataset's licence and terms on the portal and add them here.
 
