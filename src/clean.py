@@ -50,8 +50,7 @@ def clean_data(raw: pd.DataFrame) -> pd.DataFrame:
 
     required = {"Date", *NUMERIC_COLUMNS, *PERCENT_COLUMNS}
     missing = required.difference(df.columns)
-    if missing:
-        raise ValueError(f"Missing required columns: {', '.join(sorted(missing))}")
+    if missing: raise ValueError(f"Missing required columns: {', '.join(sorted(missing))}")
 
     # Dates are stored as UTC text (e.g. "2017/07/30 22:00:00+00"). 22:00 UTC is
     # midnight in South Africa, so converting the timezone gives the true
